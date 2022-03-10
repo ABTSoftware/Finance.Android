@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 31
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // for now expose TA-lib so it can be used outside finance module
+    api "com.tictactec:ta-lib:0.4.0"
+
+    // you can reference aars from Maven repository
+    def sciChartVersion = '4.3.0.4686'
+    api(group: 'com.scichart.library', name: 'core', version: "$sciChartVersion", ext: 'aar')
+    api(group: 'com.scichart.library', name: 'data', version: "$sciChartVersion", ext: 'aar')
+    api(group: 'com.scichart.library', name: 'drawing', version: "$sciChartVersion", ext: 'aar')
+    api(group: 'com.scichart.library', name: 'charting', version: "$sciChartVersion", ext: 'aar')
+
+    // or you can reference aar from libs folder
+    // api 'com.scichart:charting:+@aar'
+    // api 'com.scichart:core:+@aar'
+    // api 'com.scichart:drawing:+@aar'
+    // api 'com.scichart:data:+@aar'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+
+    testImplementation 'junit:junit:4.13'
+    testImplementation "org.hamcrest:hamcrest-library:2.2"
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation "com.github.skydoves:colorpickerview:2.2.3"
+}

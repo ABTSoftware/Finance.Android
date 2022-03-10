@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.scitrader.finance.edit.properties.FinanceEditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/value"
+    android:background="@drawable/rounded_border"
+    android:layout_width="@dimen/editableItemAbsoluteWidth"
+    android:layout_height="@dimen/editableItemAbsoluteHeight"
+    android:layout_gravity="center_vertical|end"
+    android:ems="5"
+    android:maxEms="5"
+    android:imeOptions="actionDone"
+    android:singleLine="true"
+    android:paddingHorizontal="@dimen/editableItemHorizontalMargin"
+    android:textSize="@dimen/editableItemTextSize"
+    android:text="123" />

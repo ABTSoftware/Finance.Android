@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="editableItemVerticalMargin">7dp</dimen>
+    <dimen name="editableItemHorizontalMargin">10dp</dimen>
+    <dimen name="editableItemAbsoluteWidth">78dp</dimen>
+    <dimen name="editableItemSquaredSize">24dp</dimen>
+    <dimen name="editableItemAbsoluteHeight">30dp</dimen>
+    <dimen name="editableItemInnerVerticalMargin">3dp</dimen>
+    <dimen name="editableItemWidthMinusHorizontalMargin">58dp</dimen>
+    <dimen name="headerItemPaddingTop">20dp</dimen>
+
+    <dimen name="editableItemRadius">6dp</dimen>
+    <dimen name="editableItemTextSize">14dp</dimen>
+
+    <dimen name="dividerSize">3dp</dimen>
+    <dimen name="touchPadding">5dp</dimen>
+
+    <dimen name="scichartLogoLettersMargin">2dp</dimen>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorPickerBackground"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:showDividers="middle"
+    android:divider="@drawable/divider">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="BTCUSDT"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp"
+        android:textSize="14sp"/>
+
+    <include layout="@layout/separator_line"/>
+
+    <TextView
+        android:id="@+id/watchListAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Watch list"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/openChartAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Chart"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp"
+        android:textSize="20sp"/>
+
+    <include layout="@layout/separator_line"/>
+
+    <TextView
+        android:id="@+id/cancelAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp"
+        android:textSize="20sp"/>
+</LinearLayout>

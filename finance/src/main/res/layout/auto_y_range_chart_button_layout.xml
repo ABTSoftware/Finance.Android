@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:background="@drawable/auto_range_button_background" />

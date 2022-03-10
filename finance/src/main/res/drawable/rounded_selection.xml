@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_activated="true">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <corners android:radius="@dimen/editableItemRadius" />
+
+            <gradient android:angle="0"
+                android:startColor="#FF9494CD"
+                android:endColor="#FF505090" />
+        </shape>
+    </item>
+</selector>

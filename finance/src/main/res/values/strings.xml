@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- OHLCV values IDs -->
+    <string name="xValuesId">XValues</string>
+    <string name="openValuesId">openValues</string>
+    <string name="highValuesId">highValues</string>
+    <string name="lowValuesId">lowValues</string>
+    <string name="closeValuesId">closeValues</string>
+    <string name="volumeValuesId">volumeValues</string>
+
+    <!-- Indicator values IDs -->
+    <string name="rsiId">RSI</string>
+    <string name="smaId">SMA</string>
+
+    <string name="macdId">MACD</string>
+    <string name="macdHistogramId">MACD Histogram</string>
+    <string name="macdSignalId">MACD Signal</string>
+
+    <string name="bBandsBandId">BBands Band</string>
+    <string name="bBandsMidId">BBands Mid</string>
+    <string name="stochSlowKId">Slow K</string>
+    <string name="stochSlowDId">Slow D</string>
+
+    <!-- Indicator Names -->
+    <string name="macdIndicatorName">MACD</string>
+    <string name="rsiIndicatorName">RSI</string>
+    <string name="smaIndicatorName">SMA</string>
+    <string name="bBandsIndicatorName">BBands</string>
+    <string name="htTrendlineIndicatorName">HT_TRENDLINE</string>
+    <string name="stdDevIndicatorName">STDDEV</string>
+    <string name="emaIndicatorName">EMA</string>
+    <string name="stochIndicatorName">STOCH</string>
+    <string name="adxIndicatorName">ADX</string>
+    <string name="atrIndicatorName">ATR</string>
+    <string name="cciIndicatorName">CCI</string>
+    <string name="obvIndicatorName">OBV</string>
+    <string name="sarIndicatorName">SAR</string>
+
+    <!-- Property Names -->
+    <string name="financeSeriesOpacity">Opacity</string>
+
+    <string name="strokeStyle">Stroke</string>
+    <string name="fillStyle">Fill</string>
+
+    <string name="bandsY1StrokeStyle">Y1 Stroke</string>
+    <string name="bandsY1FillStyle">Y1 Fill</string>
+
+    <string name="candlestickStrokeUpStyle">Stroke Up</string>
+    <string name="candlestickStrokeDownStyle">Stroke Down</string>
+    <string name="candlestickFillUpStyle">Fill Up</string>
+    <string name="candlestickFillDownStyle">Fill Down</string>
+    <string name="candlestickDataPointWidth">Data Point Width</string>
+
+    <string name="histogramFillUpStyle">Fill Up</string>
+    <string name="histogramFillDownStyle">Fill Down</string>
+
+    <string name="xValues">X Values</string>
+    <string name="yValues">Y Values</string>
+    <string name="y1Values">Y1 Values</string>
+    <string name="openValues">Open Values</string>
+    <string name="highValues">High Values</string>
+    <string name="lowValues">Low Values</string>
+    <string name="closeValues">Close Values</string>
+
+    <string name="indicatorSingleInput">Input</string>
+    <string name="indicatorHighInput">Input</string>
+    <string name="indicatorLowInput">Input</string>
+    <string name="indicatorCloseInput">Input</string>
+    <string name="indicatorVolumeInput">Input</string>
+
+    <string name="indicatorSmaPeriod">Period</string>
+    <string name="indicatorRsiPeriod">Period</string>
+    <string name="indicatorAdxPeriod">Period</string>
+    <string name="indicatorAtrPeriod">Period</string>
+    <string name="indicatorCciPeriod">Period</string>
+    <string name="indicatorEmaPeriod">Period</string>
+    <string name="indicatorMacdSlow">Slow</string>
+    <string name="indicatorMacdFast">Fast</string>
+    <string name="indicatorMacdSignal">Signal</string>
+    <string name="indicatorBBandsPeriod">Period</string>
+    <string name="indicatorBBandsDevUp">Dev Up</string>
+    <string name="indicatorBBandsDevDown">Dev Down</string>
+    <string name="indicatorBBandsMAType">MA Type</string>
+    <string name="indicatorStdDevPeriod">Period</string>
+    <string name="indicatorStdDev_Dev">Dev</string>
+    <string name="indicatorStochFastK">FastK</string>
+    <string name="indicatorStochSlowK">SlowK</string>
+    <string name="indicatorStochSlowD">SlowD</string>
+    <string name="indicatorStochSlowK_MAType">SlowK MAType</string>
+    <string name="indicatorStochSlowD_MAType">SlowD MAType</string>
+    <string name="indicatorSarAcceleration">Acceleration</string>
+    <string name="indicatorSarMaximum">Maximum</string>
+
+    <string name="defaultYAxis">YAxis</string>
+    <string name="textFormattingAxis">Text Formatting</string>
+    <string name="cursorTextFormatting">Cursor Text Formatting</string>
+
+    <string name="logoTextSciChart">SCICHART</string>
+    <string name="logoTextSciTrademark">®</string>
+    <string name="logoTextPoweredBy">powered by</string>
+
+    <string name="studyPriceSeries">Prices</string>
+    <string name="studyVolumeSeries">Volume</string>
+    <string name="studyVolumeYAxis">Volume Axis</string>
+
+</resources>

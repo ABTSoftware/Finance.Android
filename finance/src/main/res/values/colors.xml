@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="headerTextColor">@android:color/white</color>
+    <color name="itemTextColor">#AFAEB6</color>
+
+    <color name="crosshairLineColor">#78809D</color>
+    <color name="crosshairAxisTooltipBackground">#454A5E</color>
+
+    <color name="seriesValueLineColor">#585897</color>
+    <color name="colorPickerBackground">#272434</color>
+
+    <color name="ohlc_legend_up_color">#28996F</color>
+    <color name="ohlc_legend_down_color">#FD3720</color>
+
+    <color name="defaultRed">#FD3720</color>
+    <color name="defaultGreen">#28996F</color>
+    <color name="defaultBlue">#4DB7F3</color>
+    <color name="separatorLine">#2D2A3C</color>
+
+    <color name="sciChartLogoBackground">#E62F313E</color>
+</resources>

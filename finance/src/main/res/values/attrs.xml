@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ResizeableStackLayout">
+        <attr name="selectedDividerDrawable" format="reference"/>
+        <attr name="draggableDividerDrawable" format="reference"/>
+        <attr name="draggableIconDrawable" format="reference"/>
+        <attr name="dividerSize" format="dimension"/>
+        <attr name="touchPadding" format="dimension"/>
+    </declare-styleable>
+</resources>

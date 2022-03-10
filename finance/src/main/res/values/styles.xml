@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style parent="@android:style/Widget.Spinner" name="SpinnerAsEditText">
+        <item name="android:background">@android:drawable/edit_text</item>
+    </style>
+
+    <style name="headerTextStyle">
+        <item name="android:textColor">@color/headerTextColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="itemNameTextStyle">
+        <item name="android:textColor">@color/itemTextColor</item>
+    </style>
+
+    <style name="SciChartColorPickerDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/colorPickerBackground</item>
+    </style>
+
+    <style name="SciChartLogoTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/neuropol</item>
+        <item name="android:shadowColor">@android:color/black</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">5</item>
+    </style>
+
+</resources>

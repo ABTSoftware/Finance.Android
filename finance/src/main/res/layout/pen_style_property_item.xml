@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/editableItemVerticalMargin">
+
+        <include layout="@layout/property_title_item" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:divider="@drawable/divider"
+            android:showDividers="middle">
+
+            <com.scitrader.finance.edit.properties.PropertyColorPicker
+                android:id="@+id/propertyColorPicker"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical|end"
+                android:background="@drawable/rounded_border" />
+
+            <include
+                android:id="@+id/strokeThickness"
+                layout="@layout/edit_text_item" />
+
+            <include layout="@layout/stroke_dash_picker"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <include layout="@layout/separator_line"/>
+
+</LinearLayout>

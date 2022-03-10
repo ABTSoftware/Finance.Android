@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginVertical="3dp"
+        android:src="@drawable/ic_scichart_logo_logo" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scichart_word"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SciChartLogoTextViewStyle"
+            android:textSize="9sp"
+            android:text="@string/logoTextPoweredBy"
+            android:layout_marginBottom="-3dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/SciChartLogoTextViewStyle"
+                android:textSize="23sp"
+                android:text="@string/logoTextSciChart"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                style="@style/SciChartLogoTextViewStyle"
+                android:textSize="16sp"
+                android:text="@string/logoTextSciTrademark"/>
+        </LinearLayout>
+    </LinearLayout>
+</merge>
