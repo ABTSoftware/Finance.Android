@@ -10,7 +10,7 @@ Our SDK library may be licensed for inclusion in your trading apps, exchange app
 
 > **_NOTE_:** To see what could be done with Finance and SciChart, please try our [**SciTrader**](https://www.scitrader.io) [Android](https://play.google.com/store/apps/details?id=com.scitrader) and [iOS](https://apps.apple.com/gb/app/scitrader/id1584140348) app.
 
-# What is the Android Finance SDK?
+## What is the Android Finance SDK?
 
 * Native **Android (Kotlin)** Financial Chart Library
 * **Build Trading Apps**, Exchange Apps, or Investment/Brokerage Apps
@@ -27,7 +27,7 @@ Our SDK library may be licensed for inclusion in your trading apps, exchange app
 * **Theming, styling**
 * **Whitelabel** the Android Finance SDK into your app
 
-# Table of Contents
+## Table of Contents
 1. [Integration](#integrating-finance-sdk-manually)
     1. [Manual](#integrating-finance-sdk-manually)
     2. [Maven](#integrating-finance-sdk-using-maven)
@@ -37,7 +37,7 @@ Our SDK library may be licensed for inclusion in your trading apps, exchange app
 5. [Panes](#panes)
 6. [DataProvider and DataManager](#data-provider-and-data-manager)
 
-### Integrating Finance SDK Manually
+## Integrating Finance SDK Manually
 Please follow these steps to integrate Android Finance SDK:
 
 1. Clone the [Finance.Android repo](https://github.com/ABTSoftware/Finance.Android)
@@ -135,7 +135,7 @@ SciChartSurface.setRuntimeLicenseKey("YOUR_LICENSE_KEY")
 
 That's it. You've just created a finance chart with candles, indicators, legend, modifiers, resizing, and saved tons of development time.
 
-![Finance SDK Demo](https://user-images.githubusercontent.com/18321399/162440126-9d634793-6e30-4991-8f1f-2cf94b714206.mp4)
+![Finance SDK Demo](https://user-images.githubusercontent.com/18321399/163128600-5b62ce46-e325-49c1-a80c-b7b1f0ecbf80.gif)
 
 ## Studies
 
@@ -233,24 +233,24 @@ Here you can take a quick look at how they work:
 
 | ZoomPanModifier | PinchZoomModifier |
 | -- | -- |
-| ![ZoomPanModifier](https://user-images.githubusercontent.com/18321399/162431116-908f9b3b-f397-4907-a83e-1427bcbab5af.mp4) | ![PinchZoomModifier](https://user-images.githubusercontent.com/18321399/162431055-21c5a6f9-c179-4ef2-8f8e-86263b6c7bf6.mp4)  |
+| ![ZoomPanModifier](https://user-images.githubusercontent.com/18321399/163135651-a8e1bae1-e520-4861-939c-c5395b087e81.gif) | ![PinchZoomModifier](https://user-images.githubusercontent.com/18321399/163135630-a8aa1d3c-748e-445b-9257-e4bb5eea8d03.gif)  |
 
 | SeriesValueModifier | DoubleTapGestureModifier |
 | -- | -- |
-| ![SeriesValueModifier](https://user-images.githubusercontent.com/18321399/162430927-5e651ebc-e1f2-42d6-b74f-f7ca662af24d.mp4) | ![DoubleTapGestureModifier](https://user-images.githubusercontent.com/18321399/162430962-e003ca1e-7f88-4159-864f-3b1d186c3e3a.mp4) |
+| ![SeriesValueModifier](https://user-images.githubusercontent.com/18321399/163135638-c46dbd48-b230-463d-99da-adb6fb93cde0.gif) | ![DoubleTapGestureModifier](https://user-images.githubusercontent.com/18321399/163135622-c6ee527a-6138-497e-8b34-82ea65369d8b.gif) |
 
 | YAxisDragModifier | XRangeModifier |
 | -- | -- |
-| ![YAxisDragModifier](https://user-images.githubusercontent.com/18321399/162429986-51f8815e-48b8-4b21-8de1-40ddaa263695.mp4) | ![XRangeModifier](https://user-images.githubusercontent.com/18321399/162431022-937dba01-9998-4d50-ba41-83faad841c1e.mp4) |
+| ![YAxisDragModifier](https://user-images.githubusercontent.com/18321399/163135647-b3978ab0-6b26-4141-a5ea-1648b8aaef37.gif) | ![XRangeModifier](https://user-images.githubusercontent.com/18321399/163135645-af9b582b-1a6a-4de0-9bf7-4e7cb62c3b8f.gif) |
 
 | CrosshairModifier | StudyLegend |
 | -- | -- |
-| ![CrosshairModifier](https://user-images.githubusercontent.com/18321399/162430876-c48d6af8-da06-442f-956e-aea86d63a51e.mp4) | ![StudyLegend](https://user-images.githubusercontent.com/18321399/162430812-28039b27-5ab5-444c-82ea-98a99288d1bc.mp4) |
+| ![CrosshairModifier](https://user-images.githubusercontent.com/18321399/163135596-512742e2-f122-4021-97b4-b1ade3ffcd6e.gif) | ![StudyLegend](https://user-images.githubusercontent.com/18321399/163135642-c04bb4e0-3cdf-4275-b4ff-c4bf89afdd53.gif) |
 
-#### Panes Resizing
+### Panes Resizing
 Our built-in panes know how to resize. Assuming, you have more than one pane, you can tap between panes and drag to resize:
 
-![Pane resizing](https://user-images.githubusercontent.com/18321399/162438865-de63b203-02a8-42b1-b560-8b99c13560f9.mp4)
+![PaneResizing](https://user-images.githubusercontent.com/18321399/163135626-3d82ca2a-0557-4911-8541-cae738da266d.gif)
 
 ## Data Provider and Data Manager
 `DefaultCandleDataProvider` and `DataManager` are objects that simplify data manipulation in your app. 
@@ -325,4 +325,4 @@ That's it. The rest is handled by the SciChart library and finally, our nice blu
 
 > **_NOTE_:** Most likely, you'd want to display some real-time data, coming from the WebSocket. To see it in action, please try our [**SciTrader**](https://www.scitrader.io) [Android](https://play.google.com/store/apps/details?id=com.scitrader) and [iOS](https://apps.apple.com/gb/app/scitrader/id1584140348) app.
 
-![SciTrader Real-Time](https://user-images.githubusercontent.com/18321399/162767415-c0df8244-cc68-4ee4-8421-bc9a76fdd7a5.mp4)
+![SciTrader Real-Time](https://user-images.githubusercontent.com/18321399/163135636-640ad5ca-b28c-4640-961b-9cd1108c3089.gif)
