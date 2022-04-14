@@ -226,7 +226,7 @@ Each of our [Studies](#studies) uses one or few Finance Series to visualize pric
 
 **Pane** is an object that holds a chart, legend, and all other subviews that you might want to place on top of the chart. Also, it is responsible for chart resizing.
 
-#### Pane Factory and Chart Modifiers
+### Pane Factory and Chart Modifiers
 `SciFinanceChart` has an `IPaneFactory` object, responsible for creating panes. There is one concrete implementation, called `DefaultPaneFactory` which creates two types of panes - `DefaultPane` and `MainPane`. This factory is responsible for creating **Chart modifiers** - objects, that can be added to a chart to give it a certain behavior, like zooming, panning operations, tooltips, legends, selection of points or lines, etc. There are many different ChartModifiers provided by SciChart, so you might wanna take a look at the [Chart Modifier APIs](https://www.scichart.com/documentation/android/latest/articles/chart2d/chartModifierAPIs/Chart%20Modifier%20APIs.html) article in the [SciChart Android Documentation](https://www.scichart.com/documentation/android/latest/index.html) for more details.
 
 Here you can take a quick look at how they work:
