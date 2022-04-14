@@ -59,3 +59,67 @@ dependencies {
 
     implementation "com.github.skydoves:colorpickerview:2.2.3"
 }
+
+gradle.projectsEvaluated {
+    tasks.findByPath(":finance:publish").dependsOn ":finance:assembleRelease"
+}
+
+apply plugin: 'maven-publish'
+
+
+def publishVersion = project.hasProperty('publishVersion') ? project.property('publishVersion') : System.getenv('publish_VERSION')
+def publishUser = project.hasProperty('publishUser') ? project.property('publishUser') : System.getenv('publish_USER')
+def publishPassword = project.hasProperty('publishPassword') ? project.property('publishPassword') : System.getenv('publish_PASSWORD')
+def publishUrl = project.hasProperty('publishUrl') ? project.property('publishUrl') : System.getenv('publish_URL')
+
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId 'com.scitrader'
+            artifactId project.getName()
+            version publishVersion
+
+            artifact source: file("$buildDir/outputs/aar/${project.getName()}-release.aar") ,extension:"aar"
+
+            pom.withXml {
+                def organizationsNode = asNode().appendNode('organization')
+                organizationsNode.appendNode('name','SciTrader Ltd')
+                def dependenciesNode = asNode().appendNode('dependencies')
+
+                // List all compile dependencies and write to POM
+                configurations.api.getAllDependencies().each { Dependency dep ->
+                    if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
+                        return // ignore invalid dependencies
+
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', dep.group)
+                    dependencyNode.appendNode('artifactId', dep.name)
+                    dependencyNode.appendNode('version', dep.version)
+
+                    if (!dep.transitive) {
+                        // If this dependency is transitive, we should force exclude all its dependencies them from the POM
+                        def exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                        exclusionNode.appendNode('groupId', '*')
+                        exclusionNode.appendNode('artifactId', '*')
+                    } else if (!dep.properties.excludeRules.empty) {
+                        // Otherwise add specified exclude rules
+                        def exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                        dep.properties.excludeRules.each { ExcludeRule rule ->
+                            exclusionNode.appendNode('groupId', rule.group ?: '*')
+                            exclusionNode.appendNode('artifactId', rule.module ?: '*')
+                        }
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username publishUser
+                password publishPassword
+            }
+            url publishUrl
+        }
+    }
+}
