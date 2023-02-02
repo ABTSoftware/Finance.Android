@@ -33,7 +33,7 @@ dependencies {
     api "com.tictactec:ta-lib:0.4.0"
 
     // you can reference aars from Maven repository
-    def sciChartVersion = '4.3.0.4686'
+    def sciChartVersion = '4.4.1.4804'
     api(group: 'com.scichart.library', name: 'core', version: "$sciChartVersion", ext: 'aar')
     api(group: 'com.scichart.library', name: 'data', version: "$sciChartVersion", ext: 'aar')
     api(group: 'com.scichart.library', name: 'drawing', version: "$sciChartVersion", ext: 'aar')

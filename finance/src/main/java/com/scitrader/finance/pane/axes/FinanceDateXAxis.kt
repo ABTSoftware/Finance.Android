@@ -6,12 +6,12 @@ import android.view.View
 import com.scichart.charting.numerics.labelProviders.CalendarDateLabelFormatter
 import com.scichart.charting.numerics.labelProviders.DateLabelProvider
 import com.scichart.charting.visuals.axes.AxisModifierSurface
-import com.scichart.charting.visuals.axes.DateAxis
+import com.scichart.charting.visuals.axes.IndexDateAxis
 import com.scichart.core.utility.StringUtil
 import com.scichart.data.model.DateRange
 import java.util.*
 
-open class FinanceDateXAxis(context: Context?) : DateAxis(DateRange(), NonClippingXAxisModifierSurface(context)) {
+open class FinanceDateXAxis(context: Context?) : IndexDateAxis(DateRange(), NonClippingXAxisModifierSurface(context)) {
 
     init {
         labelProvider = DateLabelProvider(CalendarDateLabelFormatter(Locale.getDefault(), TimeZone.getTimeZone("UTC")))
