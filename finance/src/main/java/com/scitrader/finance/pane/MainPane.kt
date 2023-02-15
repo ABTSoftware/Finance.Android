@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatButton
 import com.scichart.charting.modifiers.AxisDragModifierBase
 import com.scichart.charting.visuals.ISciChartSurface
 import com.scichart.charting.visuals.SciChartSurface
-import com.scichart.charting.visuals.axes.DateAxis
+import com.scichart.charting.visuals.axes.IndexDateAxis
 import com.scichart.charting.visuals.axes.IAxis
 import com.scichart.charting.visuals.layout.CanvasLayout
 import com.scichart.data.model.DateRange
@@ -63,7 +63,7 @@ class MainPane(
         modifiers.modifierGroup.childModifiers.add(yAxisDragModifier)
 
         xRangeButton.setOnClickListener {
-            (chart.xAxes.firstOrNull() as? DateAxis)?.let { xAxis ->
+            (chart.xAxes.firstOrNull() as? IndexDateAxis)?.let { xAxis ->
                 val currentRangeDiff = xAxis.visibleRange.diff.time.toDouble()
                 val xAxisOffset = currentRangeDiff / 5
                 val max = System.currentTimeMillis() + xAxisOffset
