@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.scichart.charting.modifiers.SeriesValueModifier
+import com.scichart.charting.numerics.indexDataProvider.DataSeriesIndexDataProvider
+import com.scichart.charting.visuals.axes.IndexDateAxis
 import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries
 import com.scichart.data.model.DoubleRange
@@ -38,13 +40,15 @@ import java.text.DecimalFormat
 class PriceSeriesStudy(
     pane: PaneId,
     id: StudyId = StudyId.uniqueId("PriceSeries"),
-    ohlcvDataSourceId: OhlcvDataSourceId = OhlcvDataSourceId.DEFAULT_OHLCV_VALUES_IDS,
+    ohlcvDataSourceId: OhlcvDataSourceId = OhlcvDataSourceId.DEFAULT_OHLCV_VALUES_IDS
 ) : CandleStudyBase(pane, id) {
     @get:com.scitrader.finance.edit.annotations.EditableProperty
     val priceSeries: CandlestickFinanceSeries
 
     @get:com.scitrader.finance.edit.annotations.EditableProperty
     val volumeSeries: ColumnFinanceSeries
+
+    private var dataSeriesIndexDataProvider: DataSeriesIndexDataProvider? = null
 
     private val volumeAxisId = AxisId(pane, id, "VolumeAxis")
 
@@ -67,6 +71,7 @@ class PriceSeriesStudy(
                 closeValuesId,
                 yAxisId
             )
+            dataSeriesIndexDataProvider = DataSeriesIndexDataProvider(priceSeries.dataSeries)
 
             volumeSeries = ColumnFinanceSeries(
                 R.string.studyVolumeSeries,
@@ -143,6 +148,9 @@ class PriceSeriesStudy(
         super.placeInto(pane)
 
         pane.chart.chartModifiers.add(seriesValueModifier)
+        (pane.chart.xAxes.firstOrNull() as? IndexDateAxis)?.apply {
+            setIndexDataProvider(dataSeriesIndexDataProvider)
+        }
 
         (pane as? MainPane)?.let {
             pane.excludeAutoRangeAxisId(volumeAxisId)
