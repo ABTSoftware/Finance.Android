@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.scichart.charting.modifiers.SeriesValueModifier
+import com.scichart.charting.numerics.indexDataProvider.DataSeriesIndexDataProvider
+import com.scichart.charting.visuals.axes.IndexDateAxis
 import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries
 import com.scichart.data.model.DoubleRange
@@ -56,6 +58,9 @@ class PriceSeriesStudy(
     override val title: CharSequence
         get() = lastLegendInstrumentModel?.name ?: ""
 
+    private var dataSeriesIndexDataProvider: DataSeriesIndexDataProvider? = null
+
+
     init {
         with(ohlcvDataSourceId) {
             priceSeries = CandlestickFinanceSeries(
@@ -67,6 +72,8 @@ class PriceSeriesStudy(
                 closeValuesId,
                 yAxisId
             )
+            dataSeriesIndexDataProvider = DataSeriesIndexDataProvider(priceSeries.dataSeries)
+
 
             volumeSeries = ColumnFinanceSeries(
                 R.string.studyVolumeSeries,
@@ -143,6 +150,9 @@ class PriceSeriesStudy(
         super.placeInto(pane)
 
         pane.chart.chartModifiers.add(seriesValueModifier)
+        (pane.chart.xAxes.firstOrNull() as? IndexDateAxis)?.apply {
+            setIndexDataProvider(dataSeriesIndexDataProvider)
+        }
 
         (pane as? MainPane)?.let {
             pane.excludeAutoRangeAxisId(volumeAxisId)

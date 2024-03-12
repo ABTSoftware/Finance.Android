@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="3dp"
         android:layout_marginVertical="3dp"
+        android:background="@drawable/bg_scichart_logo"
         android:src="@drawable/ic_scichart_logo_logo" />
 
     <LinearLayout
@@ -13,7 +15,8 @@
         android:id="@+id/scichart_word"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,12 +31,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <ImageView
+                android:adjustViewBounds="true"
+                android:src="@drawable/sci_chart_word"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/SciChartLogoTextViewStyle"
-                android:textSize="23sp"
-                android:text="@string/logoTextSciChart"/>
+                android:layout_height="25dp"/>
 
             <TextView
                 android:layout_width="wrap_content"

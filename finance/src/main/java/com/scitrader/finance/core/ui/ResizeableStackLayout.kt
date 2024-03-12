@@ -72,9 +72,9 @@ abstract class ResizeableStackLayout @JvmOverloads constructor(
             return false
         }
 
-        override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
+         override fun onScroll(e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
             // handle touch down at original point of scroll and diff between current and original point
-            handleTouchDown(e1.x, e1.y)
+            handleTouchDown(e1?.x, e1?.y)
             handleTouchMove(e2.x, e2.y)
 
             return isTouchWithinBounds
@@ -220,18 +220,20 @@ abstract class ResizeableStackLayout @JvmOverloads constructor(
         return true
     }
 
-    private fun handleTouchDown(x: Float, y: Float) {
-        if (selectedDividerTouchBounds.contains(x, y)) {
-            isDragging = true
+    private fun handleTouchDown(x: Float?, y: Float?) {
+        if( x != null && y != null){
+            if (selectedDividerTouchBounds.contains(x, y)) {
+                isDragging = true
 
-            val halfHeight = selectedDividerBounds.height() / 2f
-            draggableDividerBounds.set(selectedDividerBounds.left, y - halfHeight, selectedDividerBounds.right, y + halfHeight)
+                val halfHeight = selectedDividerBounds.height() / 2f
+                draggableDividerBounds.set(selectedDividerBounds.left, y - halfHeight, selectedDividerBounds.right, y + halfHeight)
 
-            lastTouchY = y
+                lastTouchY = y
 
-            invalidate()
+                invalidate()
 
-            handleTouchMove(selectedDividerBounds.centerX(), selectedDividerBounds.centerY())
+                handleTouchMove(selectedDividerBounds.centerX(), selectedDividerBounds.centerY())
+            }
         }
     }
 
