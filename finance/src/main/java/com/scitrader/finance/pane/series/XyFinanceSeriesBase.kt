@@ -6,6 +6,7 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import androidx.annotation.StringRes
 import com.scichart.charting.model.dataSeries.IXyDataSeries
+import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.charting.visuals.renderableSeries.XyRenderableSeriesBase
 import com.scichart.charting.visuals.renderableSeries.hitTest.DefaultXySeriesInfoProvider
 import com.scichart.charting.visuals.renderableSeries.hitTest.HitTestInfo

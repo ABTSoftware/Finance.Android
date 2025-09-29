@@ -13,7 +13,8 @@ enum class Indicator {
     SAR,
     STDDEV,
     STOCH,
-    HT_TRENDLINE;
+    HT_TRENDLINE,
+    VOLUME_PROFILE;
 
     override fun toString(): String {
         return when (this) {
@@ -30,13 +31,14 @@ enum class Indicator {
             STDDEV -> "${name} / Standard Deviation"
             STOCH -> "${name} / Stochastic"
             HT_TRENDLINE -> "${name} / Hilbert Transform - Instantaneous Trendline"
+            VOLUME_PROFILE -> "${name} / Volume Profile Indicator"
         }
     }
 
     val needsSeparatePane: Boolean
     get() {
         return when (this) {
-            SMA, BBANDS, EMA, SAR, HT_TRENDLINE -> false
+            SMA, BBANDS, EMA, SAR, HT_TRENDLINE, VOLUME_PROFILE -> false
             else -> true
         }
     }

@@ -29,43 +29,8 @@ open class FinanceNumericYAxis(
 
     override fun reset() {}
 
-    protected class FinanceNumericAxis(context: Context?) : NumericAxis(DoubleRange(0.0, 10.0), NonClippingYAxisModifierSurface(context)) {
-        init {
-            axisInfoProvider = FinanceNumericAxisInfoProvider()
 
-            setRangeCalculationHelper(FinanceRangeCalculationHelper())
-        }
-
-        override fun onIsPrimaryAxisChanged(isPrimaryAxis: Boolean) {
-            super.onIsPrimaryAxisChanged(isPrimaryAxis)
-
-            // bind visibility of axis to IsPrimaryAxis property
-            visibility = if(isPrimaryAxis) View.VISIBLE else View.GONE
-        }
-
-        class NonClippingYAxisModifierSurface @JvmOverloads constructor(
-            context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-        ) : AxisModifierSurface(context, attrs, defStyleAttr) {
-
-            override fun layoutChildAt(child: View?, left: Int, top: Int, right: Int, bottom: Int) {
-                when {
-                    top < 0 -> {
-                        super.layoutChildAt(child, left, 0, right, bottom - top)
-                    }
-
-                    bottom > height -> {
-                        super.layoutChildAt(child, left, top - (bottom - height), right, height)
-                    }
-
-                    else -> {
-                        super.layoutChildAt(child, left, top, right, bottom)
-                    }
-                }
-            }
-        }
-    }
-
-    protected class FinanceRangeCalculationHelper : NumericRangeCalculationHelper() {
+    class FinanceRangeCalculationHelper : NumericRangeCalculationHelper() {
         override fun isValidSeriesForYAxis(rs: IRenderableSeries, yAxisId: String): Boolean {
             val axisId = AxisId.fromString(axis.axisId)
             val rsYAxisID = AxisId.fromString(rs.yAxisId)

@@ -1,6 +1,8 @@
 package com.scitrader.finance.pane
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
@@ -8,6 +10,9 @@ import androidx.appcompat.widget.AppCompatButton
 import com.scichart.charting.ClipMode
 import com.scichart.charting.ClipModeTarget
 import com.scichart.charting.modifiers.ModifierGroup
+import com.scichart.charting.visuals.axes.AutoRange
+import com.scichart.charting.visuals.axes.AxisAlignment
+import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.charting.visuals.layout.CanvasLayout
 import com.scichart.core.utility.ComparableUtil
 import com.scichart.data.model.RangeFactory
@@ -17,6 +22,7 @@ import com.scitrader.finance.SciFinanceChart
 import com.scitrader.finance.core.event.FinanceChartDoubleTapEvent
 import com.scitrader.finance.core.ui.ResizeableStackLayout
 import com.scitrader.finance.financeChart.CanvasSciChartSurface
+import com.scitrader.finance.pane.axes.AxisId
 import com.scitrader.finance.pane.axes.FinanceDateXAxis
 import com.scitrader.finance.pane.axes.FinanceNumericYAxis
 import com.scitrader.finance.pane.modifiers.DoubleTapGestureModifier
@@ -27,6 +33,7 @@ import com.scitrader.finance.pane.modifiers.legend.StudyLegend
 import com.scitrader.finance.state.FinanceChartState
 import com.scitrader.finance.state.PropertyState
 import com.scitrader.finance.utils.toDip
+import java.util.Collections
 
 interface IPaneFactory {
     val mainPaneHeightRatio: Float
@@ -63,6 +70,13 @@ class DefaultPaneFactory(
 
                 it.visibleRangeLimit = clone
             }
+        }
+        val volumeXAxis = NumericAxis(context).apply {
+            axisId = "xVolumeProfileValues"
+            axisAlignment = AxisAlignment.Left
+            autoRange = AutoRange.Always
+            flipCoordinates = true
+            visibility = View.GONE
         }
 
         val studyLegend = StudyLegend(context)
@@ -116,7 +130,8 @@ class DefaultPaneFactory(
         }
 
         val chart = CanvasSciChartSurface(context).apply {
-            xAxes.add(xAxis)
+//            xAxes.add(xAxis)
+            Collections.addAll(xAxes, xAxis, volumeXAxis)
             chartModifiers.add(modifierGroup)
 
             modifierSurface.safeAdd(studyLegend)

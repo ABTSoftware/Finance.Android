@@ -2,6 +2,7 @@ package com.scitrader.finance.indicators
 
 import androidx.annotation.StringRes
 import com.scichart.core.model.DoubleValues
+import com.scichart.data.model.DoubleRange
 import com.scitrader.finance.R
 import com.scitrader.finance.core.DataSourceChangedArgs
 import com.scitrader.finance.core.DataSourceId
@@ -59,7 +60,7 @@ class TALibIndicatorProvider {
     abstract class SingleInputOutputTaLibIndicator(
         @StringRes name: Int,
         inputId: DataSourceId,
-        val outputId: DataSourceId
+        val outputId: DataSourceId,
     ) : SingleInputTaLibIndicator(name, inputId) {
         private val outputValues = DoubleValues()
 
@@ -109,14 +110,14 @@ class TALibIndicatorProvider {
             inputValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean
     }
 
     class SMAIndicator(
         period: Int,
         inputId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) :
         SingleInputOutputTaLibIndicator(R.string.smaIndicatorName, inputId, outputId) {
 
@@ -132,7 +133,7 @@ class TALibIndicatorProvider {
             inputValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(
                     core.smaLookback(period.value),
@@ -167,7 +168,7 @@ class TALibIndicatorProvider {
         val macdHistId: DataSourceId,
         slow: Int,
         fast: Int,
-        signal: Int
+        signal: Int,
     ) : SingleInputTaLibIndicator(R.string.macdIndicatorName, inputId) {
 
         private val outputChangedArgs = DataSourceChangedArgs(macdId, macdSignalId, macdHistId)
@@ -266,7 +267,7 @@ class TALibIndicatorProvider {
     class RSIIndicator(
         period: Int,
         inputId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) :
         SingleInputOutputTaLibIndicator(
             R.string.rsiIndicatorName, inputId, outputId
@@ -284,7 +285,7 @@ class TALibIndicatorProvider {
             inputValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(core.rsiLookback(period.value), startIndex, endIndex)) {
                 return false
@@ -316,7 +317,7 @@ class TALibIndicatorProvider {
         inputId: DataSourceId,
         val lowerBandId: DataSourceId,
         val middleBandId: DataSourceId,
-        val upperBandId: DataSourceId
+        val upperBandId: DataSourceId,
     ) : SingleInputTaLibIndicator(R.string.bBandsIndicatorName, inputId) {
         private val lowerBand = DoubleValues()
         private val middleBand = DoubleValues()
@@ -421,7 +422,7 @@ class TALibIndicatorProvider {
 
     class HT_TrendlineIndicator(
         inputId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) : SingleInputOutputTaLibIndicator(
         R.string.htTrendlineIndicatorName, inputId, outputId
     ) {
@@ -431,7 +432,7 @@ class TALibIndicatorProvider {
             inputValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(core.htTrendlineLookback(), startIndex, endIndex)) {
                 return false
@@ -456,7 +457,7 @@ class TALibIndicatorProvider {
         period: Int,
         dev: Double,
         inputId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) :
         SingleInputOutputTaLibIndicator(
             R.string.stdDevIndicatorName, inputId, outputId
@@ -480,7 +481,7 @@ class TALibIndicatorProvider {
             inputValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(core.stdDevLookback(period.value, dev.value), startIndex, endIndex)) {
                 return false
@@ -509,7 +510,7 @@ class TALibIndicatorProvider {
     class EMAIndicator(
         period: Int,
         inputId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) :
         SingleInputOutputTaLibIndicator(
             R.string.emaIndicatorName, inputId, outputId
@@ -527,7 +528,7 @@ class TALibIndicatorProvider {
             inputValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(core.emaLookback(period.value), startIndex, endIndex)) {
                 return false
@@ -551,11 +552,112 @@ class TALibIndicatorProvider {
         }
     }
 
+    class VolumeProfileIndicator(
+        name: Int,
+        numBins: Int,
+        inputCloseId: DataSourceId,
+        inputVolumeId: DataSourceId,
+        val xValuesId: DataSourceId,
+        val yValuesId: DataSourceId,
+    ): CloseVolumeInputIndicator(name, inputCloseId, inputVolumeId) {
+
+        private val xValues = DoubleValues()
+        private val yValues = DoubleValues()
+
+        private var visibleRange = DoubleRange(0.0,0.0)
+
+        protected val outputChangedArgs = DataSourceChangedArgs(xValuesId, yValuesId)
+
+        @get:com.scitrader.finance.edit.annotations.EditableProperty
+        val numBins = PeriodEditableProperty(R.string.indicatorVolumeProfileBins, name, numBins) { id, _ ->
+            onDataSourceChanged(outputChangedArgs)
+            onPropertyChanged(id)
+        }
+
+        override fun clear() {
+            xValues.clear()
+            yValues.clear()
+        }
+
+        override fun onDataManagerAttached(dataManager: IDataManager) {
+            super.onDataManagerAttached(dataManager)
+
+            dataManager.registerYValuesSource(xValuesId, xValues)
+            dataManager.registerYValuesSource(yValuesId, yValues)
+        }
+
+        override fun onDataManagerDetached(dataManager: IDataManager) {
+            super.onDataManagerDetached(dataManager)
+
+            dataManager.unregisterYValuesSource(xValuesId)
+            dataManager.unregisterYValuesSource(yValuesId)
+        }
+
+        override fun compute(
+            startIndex: Int,
+            endIndex: Int,
+            inputCloseValues: DoubleValues,
+            inputVolumeValues: DoubleValues,
+        ) {
+            val min = visibleRange.min
+            val max = visibleRange.max
+
+            val prices = inputCloseValues.itemsArray
+            val volumes = inputVolumeValues.itemsArray
+
+            val volumeProfile: MutableMap<Double, Double> = HashMap()
+
+            val stepSize: Double = (max - min) / (numBins.value - 1)
+
+            // Initialize bins
+            val binRanges = DoubleArray(numBins.value)
+            for (i in 0 until numBins.value) {
+                binRanges[i] = min + i * stepSize
+                volumeProfile[binRanges[i]] = 0.0
+            }
+
+            // Iterate over each price level
+            for (i in prices.indices) {
+                val price: Double = prices.get(i)
+                val volume: Double = volumes.get(i)
+
+                // Find the appropriate bin and update volume
+                for (j in 0 until numBins.value) {
+                    val binStart = binRanges[j]
+                    var binEnd = 0.0
+                    binEnd = if (j < numBins.value - 1) {
+                        binRanges[j + 1]
+                    } else {
+                        100.0
+                    }
+                    if (price >= binStart && price < binEnd) {
+                        volumeProfile[binStart] = volumeProfile[binStart]!! + volume
+                        break
+                    }
+                }
+            }
+
+            xValues.clear()
+            yValues.clear()
+            for ((key, value) in volumeProfile) {
+                xValues.add(key)
+                yValues.add(value)
+            }
+
+            onDataProviderChanged(outputChangedArgs)
+        }
+
+        fun setVisibleRange(newRange: DoubleRange){
+            visibleRange = newRange
+        }
+
+    }
+
     abstract class HighLowCloseInputIndicator(
         name: Int,
         inputHighId: DataSourceId,
         inputLowId: DataSourceId,
-        inputCloseId: DataSourceId
+        inputCloseId: DataSourceId,
     ) : IndicatorBase(name) {
 
         @get:com.scitrader.finance.edit.annotations.EditableProperty
@@ -605,7 +707,7 @@ class TALibIndicatorProvider {
             endIndex: Int,
             inputHighValues: DoubleValues,
             inputLowValues: DoubleValues,
-            inputCloseValues: DoubleValues
+            inputCloseValues: DoubleValues,
         )
 
         protected abstract fun clear()
@@ -622,7 +724,7 @@ class TALibIndicatorProvider {
         inputHighId: DataSourceId,
         inputLowId: DataSourceId,
         inputCloseId: DataSourceId,
-        val outputId: DataSourceId
+        val outputId: DataSourceId,
     ) : HighLowCloseInputIndicator(name, inputHighId, inputLowId, inputCloseId) {
 
         private val outputValues = DoubleValues()
@@ -650,7 +752,7 @@ class TALibIndicatorProvider {
             endIndex: Int,
             inputHighValues: DoubleValues,
             inputLowValues: DoubleValues,
-            inputCloseValues: DoubleValues
+            inputCloseValues: DoubleValues,
         ) {
             val outStart = MInteger()
             val outLength = MInteger()
@@ -683,7 +785,7 @@ class TALibIndicatorProvider {
             inputCloseValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean
     }
 
@@ -692,7 +794,7 @@ class TALibIndicatorProvider {
         inputHighId: DataSourceId,
         inputLowId: DataSourceId,
         inputCloseId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) : HighLowCloseInputSingleOutputIndicator(
         R.string.adxIndicatorName,
         inputHighId,
@@ -715,7 +817,7 @@ class TALibIndicatorProvider {
             inputCloseValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(core.adxLookback(period.value), startIndex, endIndex)) {
                 return false
@@ -748,7 +850,7 @@ class TALibIndicatorProvider {
         inputHighId: DataSourceId,
         inputLowId: DataSourceId,
         inputCloseId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) : HighLowCloseInputSingleOutputIndicator(
         R.string.atrIndicatorName,
         inputHighId,
@@ -771,7 +873,7 @@ class TALibIndicatorProvider {
             inputCloseValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(core.atrLookback(period.value), startIndex, endIndex)) {
                 return false
@@ -804,7 +906,7 @@ class TALibIndicatorProvider {
         inputHighId: DataSourceId,
         inputLowId: DataSourceId,
         inputCloseId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) : HighLowCloseInputSingleOutputIndicator(
         R.string.cciIndicatorName,
         inputHighId,
@@ -827,7 +929,7 @@ class TALibIndicatorProvider {
             inputCloseValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(
                     core.cciLookback(period.value),
@@ -898,7 +1000,7 @@ class TALibIndicatorProvider {
             startIndex: Int,
             endIndex: Int,
             inputCloseValues: DoubleValues,
-            inputVolumeValues: DoubleValues
+            inputVolumeValues: DoubleValues,
         )
 
         protected abstract fun clear()
@@ -913,7 +1015,7 @@ class TALibIndicatorProvider {
         name: Int,
         inputCloseId: DataSourceId,
         inputVolumeId: DataSourceId,
-        val outputId: DataSourceId
+        val outputId: DataSourceId,
     ) : CloseVolumeInputIndicator(name, inputCloseId, inputVolumeId) {
 
         private val outputValues = DoubleValues()
@@ -971,14 +1073,14 @@ class TALibIndicatorProvider {
             inputVolumeValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean
     }
 
     class OBVIndicator(
         inputCloseId: DataSourceId,
         inputVolumeId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) : CloseVolumeInputSingleOutputIndicator(
         R.string.obvIndicatorName,
         inputCloseId,
@@ -992,7 +1094,7 @@ class TALibIndicatorProvider {
             inputVolumeValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(core.obvLookback(), startIndex, endIndex)) {
                 return false
@@ -1015,7 +1117,7 @@ class TALibIndicatorProvider {
     abstract class HighLowInputIndicator(
         name: Int,
         inputHighId: DataSourceId,
-        inputLowId: DataSourceId
+        inputLowId: DataSourceId,
     ) : IndicatorBase(name) {
 
         @get:com.scitrader.finance.edit.annotations.EditableProperty
@@ -1051,7 +1153,7 @@ class TALibIndicatorProvider {
             startIndex: Int,
             endIndex: Int,
             inputHighValues: DoubleValues,
-            inputLowValues: DoubleValues
+            inputLowValues: DoubleValues,
         )
 
         protected abstract fun clear()
@@ -1066,7 +1168,7 @@ class TALibIndicatorProvider {
         name: Int,
         inputHighId: DataSourceId,
         inputLowId: DataSourceId,
-        val outputId: DataSourceId
+        val outputId: DataSourceId,
     ) : HighLowInputIndicator(name, inputHighId, inputLowId) {
 
         private val outputValues = DoubleValues()
@@ -1093,7 +1195,7 @@ class TALibIndicatorProvider {
             startIndex: Int,
             endIndex: Int,
             inputHighValues: DoubleValues,
-            inputLowValues: DoubleValues
+            inputLowValues: DoubleValues,
         ) {
             val outStart = MInteger()
             val outLength = MInteger()
@@ -1124,7 +1226,7 @@ class TALibIndicatorProvider {
             inputLowValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean
     }
 
@@ -1133,7 +1235,7 @@ class TALibIndicatorProvider {
         maximum: Double,
         inputHighId: DataSourceId,
         inputLowId: DataSourceId,
-        outputId: DataSourceId
+        outputId: DataSourceId,
     ) : HighLowInputSingleOutputIndicator(
         R.string.sarIndicatorName,
         inputHighId,
@@ -1160,7 +1262,7 @@ class TALibIndicatorProvider {
             inputLowValues: DoubleArray,
             outStart: MInteger,
             outLength: MInteger,
-            outputValues: DoubleArray
+            outputValues: DoubleArray,
         ) : Boolean {
             if (shouldSkipCalculation(core.sarLookback(acceleration.value, maximum.value), startIndex, endIndex)) {
                 return false
@@ -1265,7 +1367,7 @@ class TALibIndicatorProvider {
             endIndex: Int,
             inputHighValues: DoubleValues,
             inputLowValues: DoubleValues,
-            inputCloseValues: DoubleValues
+            inputCloseValues: DoubleValues,
         ) {
             val outStart = MInteger()
             val outLength = MInteger()

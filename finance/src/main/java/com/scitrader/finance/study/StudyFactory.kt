@@ -25,6 +25,7 @@ class StudyFactory : IStudyFactory {
             Indicator.OBV -> OBVStudy(paneId)
             Indicator.SAR -> SARStudy(paneId)
             Indicator.STOCH -> StochStudy(paneId)
+            Indicator.VOLUME_PROFILE -> VolumeProfileStudy(paneId)
         }
     }
 
@@ -44,6 +45,7 @@ class StudyFactory : IStudyFactory {
                 Indicator.OBV -> OBVStudy(paneId, studyId)
                 Indicator.SAR -> SARStudy(paneId, studyId)
                 Indicator.STOCH -> StochStudy(paneId, studyId)
+                Indicator.VOLUME_PROFILE -> VolumeProfileStudy(paneId, studyId)
             }.apply {
                 restorePropertyStateFrom(studyState.properties)
             }
@@ -65,7 +67,7 @@ class StudyFactory : IStudyFactory {
             is OBVStudy -> Indicator.OBV
             is SARStudy -> Indicator.SAR
             is StochStudy -> Indicator.STOCH
-
+            is VolumeProfileStudy -> Indicator.VOLUME_PROFILE
             else -> throw UnsupportedOperationException()
         }
 

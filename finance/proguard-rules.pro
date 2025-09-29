@@ -33,3 +33,5 @@
 -keepclassmembers class ** {
   @com.scitrader.finance.edit.annotations.EditableProperty public *;
 }
+
+-dontwarn java.lang.invoke.StringConcatFactory

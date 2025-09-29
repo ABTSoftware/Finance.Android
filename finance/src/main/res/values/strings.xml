@@ -35,6 +35,7 @@
     <string name="cciIndicatorName">CCI</string>
     <string name="obvIndicatorName">OBV</string>
     <string name="sarIndicatorName">SAR</string>
+    <string name="volumeProfileIndicatorName">Volume Profile</string>
 
     <!-- Property Names -->
     <string name="financeSeriesOpacity">Opacity</string>
@@ -74,6 +75,7 @@
     <string name="indicatorAtrPeriod">Period</string>
     <string name="indicatorCciPeriod">Period</string>
     <string name="indicatorEmaPeriod">Period</string>
+    <string name="indicatorVolumeProfileBins">Number of Bins</string>
     <string name="indicatorMacdSlow">Slow</string>
     <string name="indicatorMacdFast">Fast</string>
     <string name="indicatorMacdSignal">Signal</string>
