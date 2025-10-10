@@ -7,7 +7,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.scitrader.finance.examples"
+        applicationId "com.scichart.scitrader.finance.examples"
         minSdk 21
         targetSdk 34
         versionCode 1
