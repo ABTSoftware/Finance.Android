@@ -66,6 +66,9 @@ dependencies {
 
 gradle.projectsEvaluated {
     tasks.findByPath(":finance:publish").dependsOn ":finance:assembleRelease"
+    tasks.named("publishAarPublicationToMavenRepository").configure {
+        dependsOn(":finance:assembleRelease")
+    }
 }
 
 apply plugin: 'maven-publish'
