@@ -25,6 +25,7 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+        maven { url 'https://www.myget.org/F/abtsoftware-bleeding-edge/maven' }
         // add libs folder as libs source
         flatDir {
             dirs 'libs'

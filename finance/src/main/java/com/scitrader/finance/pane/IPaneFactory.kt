@@ -1,6 +1,5 @@
 package com.scitrader.finance.pane
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,6 @@ import com.scitrader.finance.SciFinanceChart
 import com.scitrader.finance.core.event.FinanceChartDoubleTapEvent
 import com.scitrader.finance.core.ui.ResizeableStackLayout
 import com.scitrader.finance.financeChart.CanvasSciChartSurface
-import com.scitrader.finance.pane.axes.AxisId
 import com.scitrader.finance.pane.axes.FinanceDateXAxis
 import com.scitrader.finance.pane.axes.FinanceNumericYAxis
 import com.scitrader.finance.pane.modifiers.DoubleTapGestureModifier
@@ -30,6 +28,8 @@ import com.scitrader.finance.pane.modifiers.FinancePinchZoomModifier
 import com.scitrader.finance.pane.modifiers.FinanceZoomPanModifier
 import com.scitrader.finance.pane.modifiers.crosshair.CrosshairModifier
 import com.scitrader.finance.pane.modifiers.legend.StudyLegend
+import com.scitrader.finance.pane.modifiers.xAxisDrag.FinanceXAxisDragModifier
+import com.scichart.charting.modifiers.AxisDragModifierBase
 import com.scitrader.finance.state.FinanceChartState
 import com.scitrader.finance.state.PropertyState
 import com.scitrader.finance.utils.toDip
@@ -96,11 +96,18 @@ class DefaultPaneFactory(
         }.apply {
             receiveHandledEvents = true
         }
+        val xAxisDragModifier = FinanceXAxisDragModifier().apply {
+            dragMode = AxisDragModifierBase.AxisDragMode.Scale
+            clipModeX = ClipMode.ClipAtExtents
+            clipModeTargetX = ClipModeTarget.VisibleRangeLimit
+            receiveHandledEvents = true
+        }
         val modifierGroup = ModifierGroup(
             zoomPanModifier,
             pinchZoomModifier,
             crosshairModifier,
-            doubleTapModifier
+            doubleTapModifier,
+            xAxisDragModifier
         )
 
         val expandButton = LayoutInflater.from(context).inflate(R.layout.expand_chart_button_layout, null).apply {

@@ -72,6 +72,8 @@ interface ISciFinanceChart : IServiceProvider, IPublishMotionEvents, IContextPro
 
     fun saveChartStateTo(state: FinanceChartState)
     fun restoreChartStateFrom(state: FinanceChartState)
+
+    fun getPane(paneId: PaneId): IPane?
 }
 
 open class SciFinanceChart @JvmOverloads constructor(
@@ -257,6 +259,10 @@ open class SciFinanceChart @JvmOverloads constructor(
                 detachPane(pane)
             }
         }
+    }
+
+    override fun getPane(paneId: PaneId): IPane? {
+        return paneMap[paneId]
     }
 
     private fun getPaneById(paneId: PaneId): IPane? {
