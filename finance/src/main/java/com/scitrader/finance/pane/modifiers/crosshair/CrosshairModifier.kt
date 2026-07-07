@@ -198,6 +198,9 @@ class CrosshairModifier(private val studyLegend: StudyLegend) : TouchModifierBas
 
     private fun tryUpdateBehaviors() {
         if (isAttached && isEnabled) {
+            val dataSeries = parentSurface?.renderableSeries?.firstOrNull()?.dataSeries
+            if (dataSeries == null || dataSeries.count == 0) return
+
             if (pointToDraw.x.isNaN()) {
                 val layoutWidth = modifierSurface.layoutWidth
                 if (layoutWidth > 0)
@@ -206,17 +209,20 @@ class CrosshairModifier(private val studyLegend: StudyLegend) : TouchModifierBas
                     return
             }
 
-            if (!hasBeginBehaviorUpdate) {
-                axisTooltipsBehavior.onBeginUpdate(pointToDraw, isMaster)
-                crosshairDrawableBehavior.onBeginUpdate(pointToDraw, isMaster)
-                studyLegend.tryUpdateTooltips(pointToDraw.x, pointToDraw.y)
+            try {
+                if (!hasBeginBehaviorUpdate) {
+                    axisTooltipsBehavior.onBeginUpdate(pointToDraw, isMaster)
+                    crosshairDrawableBehavior.onBeginUpdate(pointToDraw, isMaster)
+                    studyLegend.tryUpdateTooltips(pointToDraw.x, pointToDraw.y)
 
-                hasBeginBehaviorUpdate = true
-            } else {
-                axisTooltipsBehavior.clear()
-                axisTooltipsBehavior.onUpdate(pointToDraw, isMaster)
-                crosshairDrawableBehavior.onUpdate(pointToDraw, isMaster)
-                studyLegend.tryUpdateTooltips(pointToDraw.x, pointToDraw.y)
+                    hasBeginBehaviorUpdate = true
+                } else {
+                    axisTooltipsBehavior.clear()
+                    axisTooltipsBehavior.onUpdate(pointToDraw, isMaster)
+                    crosshairDrawableBehavior.onUpdate(pointToDraw, isMaster)
+                    studyLegend.tryUpdateTooltips(pointToDraw.x, pointToDraw.y)
+                }
+            } catch (_: Exception) {
             }
         }
     }
